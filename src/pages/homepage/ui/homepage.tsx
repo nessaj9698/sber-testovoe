@@ -1,20 +1,18 @@
-import { companyApi } from "entities/companies";
-import { EntitiesList } from "widgets/entities-list";
-import { AddEntity } from "features/add-entity";
-import { useStyles } from "shared/hooks/use-styles";
+import { useGetCompaniesQuery } from 'entities/companies'
+import { EntitiesList } from 'widgets/entities-list'
+import { AddEntity } from 'features/add-entity'
 
 export const HomePage = () => {
-  const { data } = companyApi.useGetCompaniesQuery();
-  const { classes } = useStyles();
+  const { data } = useGetCompaniesQuery()
 
   return (
-    <div className={classes.pageInner}>
+    <>
       {data && data.length > 0 ? (
-        <EntitiesList entities={data} entityType="company"/>
+        <EntitiesList entities={data} entityType='company' />
       ) : (
         <h1>Список компаний пуст</h1>
       )}
-      <AddEntity entityType="company" />
-    </div>
-  );
-};
+      <AddEntity entityType='company' />
+    </>
+  )
+}

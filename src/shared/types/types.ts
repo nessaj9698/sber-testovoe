@@ -1,1 +1,1 @@
-export type Entities = "employee" | "company";
+export type Entities = 'employee' | 'company'

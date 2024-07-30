@@ -1,42 +1,32 @@
-import { useFormik } from "formik";
-import { employeeApi } from "entities/employee";
-import { useStyles } from "shared/hooks/use-styles";
-import { Button } from "@mui/material";
-import { Input } from "@mui/material";
+import { useEditEmployeeMutation } from 'entities/employee'
+import { Form } from 'shared/ui/form'
 
 type Props = {
-  id: number;
-  companyId: number;
-};
+  id: number
+  companyId: number
+  initialValue: string
+  onClose: () => void
+}
 
-export const ChangeEmployeeForm = ({ id, companyId }: Props) => {
-  const [trigger] = employeeApi.useEditEmployeeMutation();
-  const formik = useFormik({
-    initialValues: {
-      text: "",
-    },
-    onSubmit: (values) => {
-      trigger({ employeeId: id, companyId, name: values.text });
-    },
-  });
-  const { classes } = useStyles();
+export const ChangeEmployeeForm = ({
+  id,
+  companyId,
+  initialValue,
+  onClose,
+}: Props) => {
+  const [changeEmployee] = useEditEmployeeMutation()
+  const handleSubmit = (value: string) => {
+    changeEmployee({ employeeId: id, companyId, name: value })
+    onClose()
+  }
 
   return (
-    <div className={classes.formWrapper}>
-      <h3 className={classes.formHeading}>Изменить сотрудника</h3>
-      <form onSubmit={formik.handleSubmit}>
-        <Input
-          id="text"
-          name="text"
-          type="text"
-          onChange={formik.handleChange}
-          value={formik.values.text}
-          placeholder="Имя сотрудника"
-          required
-        />
-
-        <Button type="submit">Изменить</Button>
-      </form>
-    </div>
-  );
-};
+    <Form
+      submitHandler={value => handleSubmit(value)}
+      formTitle='Редактировать сотрудника'
+      inputPlaceholder='Новое имя'
+      buttonText='Изменить'
+      initialValue={initialValue}
+    />
+  )
+}

@@ -1,1 +1,1 @@
-export { gateWayOrigin, employeeGateWay, companiesGateWay } from "./gateways";
+export { gateWayOrigin, employeeGateWay, companiesGateWay } from './gateways'

@@ -1,41 +1,27 @@
-import { useFormik } from "formik";
-import { companyApi } from "entities/companies";
-import { useStyles } from "shared/hooks/use-styles";
-import { Button } from "@mui/material";
-import { Input } from "@mui/material";
+import { useEditCompanyMutation } from 'entities/companies'
+import { Form } from 'shared/ui/form'
 
 type Props = {
-  id: number;
-};
+  id: number
+  initialValue: string
+  onClose: () => void
+}
 
-export const ChangeCompanyForm = ({ id }: Props) => {
-  const [trigger] = companyApi.useEditCompanyMutation();
-  const formik = useFormik({
-    initialValues: {
-      text: "",
-    },
-    onSubmit: (values) => {
-      trigger({ id, title: values.text });
-    },
-  });
+export const ChangeCompanyForm = ({ id, initialValue, onClose }: Props) => {
+  const [changeCompany] = useEditCompanyMutation()
 
-  const { classes } = useStyles();
+  const handleSubimt = (value: string) => {
+    changeCompany({ id, title: value })
+    onClose()
+  }
+
   return (
-    <div className={classes.formWrapper}>
-      <h3 className={classes.formHeading}>Изменить компанию</h3>
-      <form onSubmit={formik.handleSubmit}>
-        <Input
-          id="text"
-          name="text"
-          type="text"
-          onChange={formik.handleChange}
-          value={formik.values.text}
-          placeholder="Название компании"
-          required
-        />
-
-        <Button type="submit">Изменить</Button>
-      </form>
-    </div>
-  );
-};
+    <Form
+      submitHandler={value => handleSubimt(value)}
+      formTitle='Изменить компанию'
+      inputPlaceholder='Новое название'
+      buttonText='Изменить'
+      initialValue={initialValue}
+    />
+  )
+}

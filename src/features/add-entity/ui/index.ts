@@ -1,1 +1,1 @@
-export { AddEntity } from "./add-entity";
+export { AddEntity } from './add-entity'

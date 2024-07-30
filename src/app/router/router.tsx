@@ -1,14 +1,14 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import { HomePage } from "pages/homepage";
-import { CompanyPage } from "pages/company-page";
+import { HomePage } from 'pages/homepage'
+import { CompanyPage } from 'pages/company-page'
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <HomePage />,
   },
-  { path: "/companies/:companyId", element: <CompanyPage /> },
-]);
+  { path: '/companies/:companyId', element: <CompanyPage /> },
+])
 
-export const Router = () => <RouterProvider router={router} />;
+export const Router = () => <RouterProvider router={router} />

@@ -1,40 +1,49 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { companiesGateWay } from "shared/api";
-import type { Company } from "entities/companies";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { companiesGateWay } from 'shared/api'
+import type { Company } from 'entities/companies'
 
-export const companyApi = createApi({
-  reducerPath: "companyApi",
+const companyApi = createApi({
+  reducerPath: 'companyApi',
   baseQuery: fetchBaseQuery({
     baseUrl: companiesGateWay,
   }),
-  tagTypes: ["Company"],
-  endpoints: (builder) => ({
+  tagTypes: ['Company'],
+  endpoints: builder => ({
     getCompanies: builder.query<Company[], void>({
-      query: () => "list",
-      providesTags: ["Company"],
+      query: () => 'list',
+      providesTags: ['Company'],
     }),
     editCompany: builder.mutation<Company, { id: number; title: string }>({
       query: ({ id, title }) => ({
-        url: "edit",
-        method: "PATCH",
+        url: 'edit',
+        method: 'PATCH',
         body: { id, title },
       }),
-      invalidatesTags: ["Company"],
+      invalidatesTags: ['Company'],
     }),
     addCompany: builder.mutation<Company[], string>({
-      query: (title) => ({
-        url: "add",
-        method: "POST",
+      query: title => ({
+        url: 'add',
+        method: 'POST',
         body: { title },
       }),
-      invalidatesTags: ["Company"],
+      invalidatesTags: ['Company'],
     }),
     removeCompany: builder.mutation<Company[], number>({
-      query: (companyId) => ({
+      query: companyId => ({
         url: `remove?companyId=${companyId}`,
-        method: "DELETE",
+        method: 'DELETE',
       }),
-      invalidatesTags: ["Company"],
+      invalidatesTags: ['Company'],
     }),
   }),
-});
+})
+
+export const {
+  useAddCompanyMutation,
+  useEditCompanyMutation,
+  useGetCompaniesQuery,
+  useRemoveCompanyMutation,
+} = companyApi
+
+export default companyApi

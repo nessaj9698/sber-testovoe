@@ -10,14 +10,14 @@ export const handlers = [
     const url = new URL(request.url);
     const companyId = Number(url.searchParams.get("companyId"));
 
-    const data = storageManipulator.getEmployeesFromCompany(companyId);
+    const data = storageManipulator.getEmployeesByCompanyId(companyId);
     return HttpResponse.json(data);
   }),
 
   http.patch(`${employeeGateWay}/edit`, async ({ request }) => {
     const { employeeId, companyId, name } =
       (await request.json()) as EmployeeRequest;
-    storageManipulator.updateEmployeeInLS(companyId, employeeId, { name });
+    storageManipulator.updateEmployee(companyId, employeeId, { name });
     return HttpResponse.json(request);
   }),
 
@@ -37,19 +37,19 @@ export const handlers = [
   }),
 
   http.get(`${companiesGateWay}/list`, () => {
-    const data = storageManipulator.getCompaniesFromLS();
+    const data = storageManipulator.getCompanies();
     return HttpResponse.json(data);
   }),
 
   http.patch(`${companiesGateWay}/edit`, async ({ request }) => {
     const { id, title } = (await request.json()) as Company;
-    storageManipulator.updateCompanyInLS(id, { title });
+    storageManipulator.updateCompany(id, { title });
     return HttpResponse.json(request);
   }),
 
   http.post(`${companiesGateWay}/add`, async ({ request }) => {
     const { title } = (await request.json()) as Company;
-    storageManipulator.addCompanyToLS({ title });
+    storageManipulator.addCompany({ title });
     return HttpResponse.json(request);
   }),
 
@@ -57,7 +57,7 @@ export const handlers = [
     const url = new URL(request.url);
     const companyId = Number(url.searchParams.get("companyId"));
 
-    storageManipulator.deleteCompanyFromLS(companyId);
+    storageManipulator.deleteCompany(companyId);
     return HttpResponse.json({ success: true });
   }),
 ];

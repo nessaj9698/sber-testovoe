@@ -1,1 +1,1 @@
-export { RemoveCompany, RemoveEmployee } from "./ui";
+export { RemoveCompany, RemoveEmployee } from './ui'

@@ -1,2 +1,2 @@
-export { RemoveCompany } from "./company";
-export { RemoveEmployee } from "./employee";
+export { RemoveCompany } from './company'
+export { RemoveEmployee } from './employee'

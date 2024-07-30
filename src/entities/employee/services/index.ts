@@ -1,1 +1,7 @@
-export { employeeApi } from "./employee-service";
+export {
+  useAddEmployeeMutation,
+  useEditEmployeeMutation,
+  useGetEmployeesQuery,
+  useRemoveEmployeeMutation,
+  default as employeeApi,
+} from './employee-service'

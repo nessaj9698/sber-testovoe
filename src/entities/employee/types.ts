@@ -1,10 +1,10 @@
 export type Employee = {
-  id: number;
-  name: string;
-};
+  id: number
+  name: string
+}
 
 export type EmployeeRequest = {
-  companyId: number;
-  employeeId: number;
-  name?: string;
-};
+  companyId: number
+  employeeId: number
+  name?: string
+}
